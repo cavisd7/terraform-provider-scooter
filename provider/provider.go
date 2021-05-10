@@ -1,6 +1,7 @@
 package provider
 
 import (
+	"github.com/cavisd7/terraform-plugin-scooter/api/client"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 

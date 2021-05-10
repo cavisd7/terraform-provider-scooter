@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"regexp"
 
+	"github.com/cavisd7/terraform-provider-scooter/api/client"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
@@ -52,4 +53,29 @@ func validateName(v interface{}, k string) (ws []string, es []error) {
 	}
 
 	return warns, errs
+}
+
+func resourceCreateItem(d *schema.ResourceData, m interface{}) error {
+	apiClient := m.(client.Client)
+	fmt.Printf("API CLIENT: %v\n", apiClient)
+}
+
+func resourceReadItem(d *schema.ResourceData, m interface{}) error {
+	apiClient := m.(client.Client)
+	fmt.Printf("API CLIENT: %v\n", apiClient)
+}
+
+func resourceUpdateItem(d *schema.ResourceData, m interface{}) error {
+	apiClient := m.(client.Client)
+	fmt.Printf("API CLIENT: %v\n", apiClient)
+}
+
+func resourceDeleteItem(d *schema.ResourceData, m interface{}) error {
+	apiClient := m.(client.Client)
+	fmt.Printf("API CLIENT: %v\n", apiClient)
+}
+
+func resourceExistsItem(d *schema.ResourceData, m interface{}) error {
+	apiClient := m.(client.Client)
+	fmt.Printf("API CLIENT: %v\n", apiClient)
 }
