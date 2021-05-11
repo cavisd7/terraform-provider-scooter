@@ -1,7 +1,17 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/cavisd7/terraform-provider-scooter/api/server"
+)
 
 func main() {
-	fmt.Println("api")
+	items := map[string]server.Item{}
+
+	itemService := server.NewService("localhost:3001", items)
+	itemService.Serve()
+	if err != nil {
+		fmt.Println(err)
+	}
 }

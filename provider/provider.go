@@ -1,7 +1,7 @@
 package provider
 
 import (
-	"github.com/cavisd7/terraform-plugin-scooter/api/client"
+	"github.com/cavisd7/terraform-provider-scooter/api/client"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
@@ -21,7 +21,7 @@ func Provider() *schema.Provider {
 			},
 		},
 		ResourcesMap: map[string]*schema.Resource{
-			"test_item": testItem(),
+			"test_item": testResource(),
 		},
 		ConfigureFunc: providerConfigure,
 	}

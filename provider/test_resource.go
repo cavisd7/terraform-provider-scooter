@@ -58,24 +58,34 @@ func validateName(v interface{}, k string) (ws []string, es []error) {
 func resourceCreateItem(d *schema.ResourceData, m interface{}) error {
 	apiClient := m.(client.Client)
 	fmt.Printf("API CLIENT: %v\n", apiClient)
+
+	return nil
 }
 
 func resourceReadItem(d *schema.ResourceData, m interface{}) error {
 	apiClient := m.(client.Client)
 	fmt.Printf("API CLIENT: %v\n", apiClient)
+
+	return nil
 }
 
 func resourceUpdateItem(d *schema.ResourceData, m interface{}) error {
 	apiClient := m.(client.Client)
 	fmt.Printf("API CLIENT: %v\n", apiClient)
+
+	return nil
 }
 
 func resourceDeleteItem(d *schema.ResourceData, m interface{}) error {
 	apiClient := m.(client.Client)
 	fmt.Printf("API CLIENT: %v\n", apiClient)
+
+	return nil
 }
 
-func resourceExistsItem(d *schema.ResourceData, m interface{}) error {
+func resourceExistsItem(d *schema.ResourceData, m interface{}) (bool, error) {
 	apiClient := m.(client.Client)
 	fmt.Printf("API CLIENT: %v\n", apiClient)
+
+	return true, nil
 }
