@@ -1,1 +1,5 @@
-terraform-provider-scooter
+terraform-provider-scooter_v1.0.0
+.terraform
+terraform.tfstate
+terraform.tfstate.backup
+.terraform.lock.hcl

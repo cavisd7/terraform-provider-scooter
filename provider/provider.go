@@ -21,7 +21,7 @@ func Provider() *schema.Provider {
 			},
 		},
 		ResourcesMap: map[string]*schema.Resource{
-			"test_item": testResource(),
+			"scooter_test_item": testResource(),
 		},
 		ConfigureFunc: providerConfigure,
 	}

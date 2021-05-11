@@ -3,9 +3,9 @@ package client
 import (
 	"bytes"
 	"encoding/json"
-	"net/http"
+	"fmt"
 	"io"
-	"encoding/json"
+	"net/http"
 
 	"github.com/cavisd7/terraform-provider-scooter/api/server"
 )
@@ -24,9 +24,35 @@ func NewClient(hostname string, port int) *Client {
 	}
 }
 
-/*func (c *Client) GetItem(name string) (*server.Item, error) {
+func (c *Client) GetAll() (*map[string]server.Item, error) {
+	body, err := c.httpRequest("item", "GET", bytes.Buffer{})
+	if err != nil {
+		return nil, err
+	}
 
-}*/
+	items := map[string]server.Item{}
+	err = json.NewDecoder(body).Decode(&items)
+	if err != nil {
+		return nil, err
+	}
+
+	return &items, nil
+}
+
+func (c *Client) GetItem(name string) (*server.Item, error) {
+	body, err := c.httpRequest(fmt.Sprintf("item/%v", name), "GET", bytes.Buffer{})
+	if err != nil {
+		return nil, err
+	}
+
+	item := &server.Item{}
+	err = json.NewDecoder(body).Decode(item)
+	if err != nil {
+		return nil, err
+	}
+
+	return item, nil
+}
 
 func (c *Client) NewItem(item *server.Item) error {
 	buf := bytes.Buffer{}
@@ -43,11 +69,35 @@ func (c *Client) NewItem(item *server.Item) error {
 	return nil
 }
 
+func (c *Client) UpdateItem(item *server.Item) error {
+	buf := bytes.Buffer{}
+	err := json.NewEncoder(&buf).Encode(item)
+	if err != nil {
+		return err
+	}
+
+	_, err = c.httpRequest(fmt.Sprintf("item/%v", item.Name), "PUT", buf)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (c *Client) DeleteItem(name string) error {
+	_, err := c.httpRequest(fmt.Sprintf("item/%v", name), "DELETE", bytes.Buffer{})
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (c *Client) httpRequest(path, method string, body bytes.Buffer) (closer io.ReadCloser, err error) {
 	requestPath := fmt.Sprintf("%s:%v/%s", c.hostname, c.port, path)
 	req, err := http.NewRequest(method, requestPath, &body)
 	if err != nil {
-		return nil, err 
+		return nil, err
 	}
 
 	req.Header.Add("Content-Type", "application/json")
